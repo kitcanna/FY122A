@@ -24,8 +24,6 @@ Task: Modify the function update_sat so that the positions and velocities
 of the satellites are updated corrected and obeying the laws of physics.
 (see further instructions inside function update_sat).
 
-Last update
-Jorgen Ekman, 13 January 2023
 """
 #import numpy as np
 import matplotlib.pyplot as plt
@@ -65,12 +63,34 @@ def update_sat(x1,x2,v1,v2,F,dt):
     """
     global docked
     
-    # Remove the dummy codes below (lines 70-73) and replace with
-    # the correct function.
-    xnew1 = x1
+    # position 1 = previous position + (velocity * time step)
+    xnew1 = x1 + (v1*dt) 
+    # velocity 1 = v(t+dt) = v(t) + a(t)*dt 
+    vnew1 = v1 + ((F/m1)*dt)
+
     xnew2 = x2
-    vnew1 = v1
     vnew2 = v2
+
+    # if distance is less than 5
+    if xnew2-xnew1<5:
+
+        # if speed 1 is < 2m/s, docking successful 
+        if vnew1 < 2:
+            docked = 1 
+            xnew1 = xnew2 
+            vnew1 = vnew2
+            # maybe stop time? 
+
+        # if speed 1 is >= 2m/s, collision (docked = 2)
+        else :
+            docked = 2
+
+            vnew1 = v1*(m1-m2)/(m1+m2)
+            xnew1 = x1 + (vnew1*dt)
+            
+            vnew2 = v1*(2*m1)/(m1+m2)
+            xnew2 = x2 + (vnew2*dt)
+
             
     return xnew1,xnew2,vnew1,vnew2
 
@@ -145,11 +165,16 @@ while telapsed <= t_lim:
         verticalalignment='top')
     
     # If succesful docking
-    textstring = "Docking succesful!!"
+    textstring = "Docking successful!"
     if docked == 1:
-        ax.text(0.5, 0.2, textstring, transform=ax.transAxes, color="white", fontsize=12,
+        ax.text(0.5, 0.2, textstring, transform=ax.transAxes, color="white", fontsize=10,
         verticalalignment='top')
-        
+
+    textstring = "Oh no, collision!"
+    if docked == 2:
+        ax.text(0.5, 0.2, textstring, transform=ax.transAxes, color="white", fontsize=10,
+        verticalalignment='top')
+    
     plt.pause(0.1)
     
     # Don't clear the last plot
