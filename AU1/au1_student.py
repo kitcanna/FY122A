@@ -68,30 +68,36 @@ def update_sat(x1,x2,v1,v2,F,dt):
     # velocity 1 = v(t+dt) = v(t) + a(t)*dt 
     vnew1 = v1 + ((F/m1)*dt)
 
-    xnew2 = x2
+    xnew2 = x2 + (v2*dt)
     vnew2 = v2
 
     # if distance is less than 5
-    if xnew2-xnew1<5:
+    if xnew2-xnew1<5: 
 
         # if speed 1 is < 2m/s, docking successful 
         if vnew1 < 2:
+            print("Satellite 1 speed before docking: ",vnew1)
             docked = 1 
-            xnew1 = xnew2 
-            vnew1 = vnew2
+            vnew1 = ((m1)/(m1+m2))*vnew1
+            vnew2 = vnew1
+            print("Satellite 1 and 2 speed after docking: ",vnew2)
+
             # maybe stop time? 
 
         # if speed 1 is >= 2m/s, collision (docked = 2)
         else :
             docked = 2
 
-            vnew1 = v1*(m1-m2)/(m1+m2)
+            vnew1 = -((m1-m2)/(m1+m2))*v1
             xnew1 = x1 + (vnew1*dt)
-            
-            vnew2 = v1*(2*m1)/(m1+m2)
-            xnew2 = x2 + (vnew2*dt)
+            print("Satellite 1 speed BEFORE collision: ",v1)
+            print("Satellite 1 speed AFTER collision: ",vnew1)
 
-            
+            vnew2 = ((2*m1)/(m1+m2))*v1
+            xnew2 = x2 + (vnew2*dt)
+            print("Satellite 2 speed BEFORE collision: ",v2)
+            print("Satellite 2 speed AFTER collision: ",vnew2)
+
     return xnew1,xnew2,vnew1,vnew2
 
 # Initialisation of some parameters (don't change)
