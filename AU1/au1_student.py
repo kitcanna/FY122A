@@ -29,12 +29,14 @@ of the satellites are updated corrected and obeying the laws of physics.
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Button
 import time
+from pynput import keyboard
 
 docked = 0  # Flag for controlling if the satellites
             # have docked (docked = 1) or not (docked = 0)
 t_lim = 40  # The duration in seconds the simulation lasts.
             # Should be around 40 s at hand in, but can be changed during
             # the development of the function.
+
 def update_sat(x1,x2,v1,v2,F,dt):
     """
     Indata:
@@ -72,23 +74,24 @@ def update_sat(x1,x2,v1,v2,F,dt):
     vnew2 = v2
 
     # if distance is less than 5
-    if xnew2-xnew1<5: 
+    if abs(xnew2-xnew1)<5: 
 
         # if speed 1 is < 2m/s, docking successful 
-        if vnew1 < 2:
+        if abs(vnew2-vnew1) < 2: 
             print("Satellite 1 speed before docking: ",vnew1)
             docked = 1 
+
+            # this is only true when satellite 2 is still, which here is the case. 
             vnew1 = ((m1)/(m1+m2))*vnew1
             vnew2 = vnew1
+
             print("Satellite 1 and 2 speed after docking: ",vnew2)
 
-            # maybe stop time? 
-
-        # if speed 1 is >= 2m/s, collision (docked = 2)
+        # if speed 1 is >= 2m/s, there is a collision 
         else :
-            docked = 2
+            docked = 2 #comment
 
-            vnew1 = -((m1-m2)/(m1+m2))*v1
+            vnew1 = ((m1-m2)/(m1+m2))*v1
             xnew1 = x1 + (vnew1*dt)
             print("Satellite 1 speed BEFORE collision: ",v1)
             print("Satellite 1 speed AFTER collision: ",vnew1)
@@ -110,6 +113,8 @@ v1 = 0
 m2 = 1000
 x2 = 0
 v2 = 0
+
+#///////////////////////////////////////
 
 fig, ax = plt.subplots()
 # Adjust figure to make room for buttons
@@ -134,6 +139,8 @@ def incr(event):
     F = F + 50.0
     
 incr_button.on_clicked(incr)
+
+#///////////////////////////////////////
 
 tstart = time.time()
 telapsed = 0
