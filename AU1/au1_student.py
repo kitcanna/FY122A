@@ -23,13 +23,11 @@ dt              # Time step. Updated in each iteration and given as
 Task: Modify the function update_sat so that the positions and velocities 
 of the satellites are updated corrected and obeying the laws of physics.
 (see further instructions inside function update_sat).
-
 """
 #import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Button
 import time
-from pynput import keyboard
 
 docked = 0  # Flag for controlling if the satellites
             # have docked (docked = 1) or not (docked = 0)
@@ -78,8 +76,8 @@ def update_sat(x1,x2,v1,v2,F,dt):
 
         # if speed 1 is < 2m/s, docking successful 
         if abs(vnew2-vnew1) < 2: 
-            print("Satellite 1 speed before docking: ",vnew1)
             docked = 1 
+            print("Satellite 1 speed before docking: ",vnew1)
 
             # this is only true when satellite 2 is still, which here is the case. 
             vnew1 = ((m1)/(m1+m2))*vnew1
@@ -89,7 +87,7 @@ def update_sat(x1,x2,v1,v2,F,dt):
 
         # if speed 1 is >= 2m/s, there is a collision 
         else :
-            docked = 2 #comment
+            docked = 2 
 
             vnew1 = ((m1-m2)/(m1+m2))*v1
             xnew1 = x1 + (vnew1*dt)
@@ -145,6 +143,7 @@ incr_button.on_clicked(incr)
 tstart = time.time()
 telapsed = 0
 told = tstart
+
 # Main loop startshere
 while telapsed <= t_lim:
     # Deduce time and time step
@@ -183,6 +182,7 @@ while telapsed <= t_lim:
         ax.text(0.5, 0.2, textstring, transform=ax.transAxes, color="white", fontsize=10,
         verticalalignment='top')
 
+    # Collision (ADDED)
     textstring = "Oh no, collision!"
     if docked == 2:
         ax.text(0.5, 0.2, textstring, transform=ax.transAxes, color="white", fontsize=10,
