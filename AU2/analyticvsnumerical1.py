@@ -10,16 +10,15 @@ dim = len(t)
 m = 1
 k = 1
 c = 0.2
-ca = [0.2, 2, 5]  # the given damping coefficients
 b = 0
 w = 2.5
 w0 = np.sqrt(k/m)
 lam = c/(2*m)
 
 # Parametrar för analytisk lösning
-A = 1.01
 beta = np.sqrt(w0**2-lam**2)
-delt = np.radians(81.9106)
+delt = np.radians(81.9106) 
+A = np.sqrt(1+((lam**2)/delt**2))
 
 # Initialisera vektorer
 x = np.zeros(dim)

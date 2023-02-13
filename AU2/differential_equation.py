@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+## NOT USED!!!!! ##
+
 # The code implements the numerical solution of the damped harmonic oscillator equation using the Euler method. 
 # The solution gives the position x and velocity v of the oscillator at each time step.
 
