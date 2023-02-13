@@ -12,7 +12,7 @@ v0 = 0 # the initial velocity of the oscillator
 
 # Time
 T = 10 # the total time of the simulation
-dt = 0.1 # time step
+dt = 0.001 # time step
 t = np.arange(0, T, dt) # arange(start, stop, step) 
 
 # Euler's method
@@ -40,4 +40,5 @@ for value in c:
 plt.legend()
 plt.xlabel('Time (t)')
 plt.ylabel('Displacement (x)')
+plt.grid()
 plt.show()

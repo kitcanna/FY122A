@@ -4,21 +4,19 @@ import matplotlib.pyplot as plt
 # The code implements the numerical solution of the damped harmonic oscillator equation using the Euler method. 
 # The solution gives the position x and velocity v of the oscillator at each time step.
 
-
 # Constants
 # m = the mass of the oscillator
 # c = the damping coefficient
 # k = the spring constant
 # b = the amplitude of the driving force
-# omega = the frequency of the driving force
 
 #m = 1
 #k = 1
 #b = 1
 m = 0.05
-k = 1
-b = 0.02
-omega_0 = np.sqrt(k/m)
+k = 2
+b = 0.01
+omega_0 = np.sqrt(k/m) # the frequency of the driving force
 
 # Euler
 def euler(m, c, k, b, omega, x0, v0, T, dt):
@@ -52,8 +50,8 @@ def euler(m, c, k, b, omega, x0, v0, T, dt):
     # at each time step.
     return t, x
 
-#c_values = [0.01, 0.1, 0.5, 1, 2, 5]
-c_val = [0.01]
+c_val = [0.01, 0.1, 0.5, 1, 2, 5]
+#c_val = [0.01]
 omega_val = [0.5 * omega_0, omega_0, 1.5 * omega_0]
 # By choosing 0.9 and 1.1, we are defining a range of frequencies 
 # that are slightly below and slightly above omega_0. 
