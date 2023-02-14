@@ -37,8 +37,10 @@ for value in c:
     plt.plot(t, x, label='c={}'.format(value))
 
 # Plot
-plt.legend()
-plt.xlabel('Time (t)')
-plt.ylabel('Displacement (x)')
-plt.grid()
+plt.legend(fontsize=15)
+plt.xlabel('Time (t)', fontsize=15) # set font size for x-axis label
+plt.ylabel('Displacement (x)', fontsize=15) # set font size for y-axis label
+plt.xticks(fontsize=14) # set font size for x-axis ticks
+plt.yticks(fontsize=14) # set font size for y-axis ticks
+
 plt.show()

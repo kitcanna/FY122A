@@ -31,10 +31,12 @@ for c in c_val:
   # Plot the amplitude curve
   plt.plot(omega, A_omega, label='c = ' + str(c))
 
-plt.xlabel('Drive Frequency (omega)')
-plt.ylabel('Amplitude (A(omega))')
-plt.title('Amplitude curve as a function of drive frequency')
-plt.legend()
+plt.legend(fontsize=15)
+plt.xlabel('Drive Frequency (omega)',fontsize=15)
+plt.ylabel('Amplitude (A(omega))',fontsize=15)
+plt.title('Change in amplitude caused by the damping coefficient',fontsize=15)
+plt.xticks(fontsize=14) # set font size for x-axis ticks
+plt.yticks(fontsize=14) # set font size for y-axis ticks
 plt.show()
 
 

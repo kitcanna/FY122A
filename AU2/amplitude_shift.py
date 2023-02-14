@@ -25,7 +25,9 @@ A_omega = A(omega)
 
 # Plot the amplitude curve
 plt.plot(omega, A_omega)
-plt.xlabel('Drive Frequency (omega)')
-plt.ylabel('Amplitude (A(omega))')
-plt.title('Amplitude curve as a function of drive frequency')
+plt.xlabel('Drive Frequency (omega)', fontsize=15)
+plt.ylabel('Amplitude (A(omega))', fontsize=15)
+plt.title('Amplitude curve as a function of drive frequency', fontsize=15)
+plt.xticks(fontsize=14) # set font size for x-axis ticks
+plt.yticks(fontsize=14) # set font size for y-axis ticks
 plt.show()
